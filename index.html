@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>hearted — Support & FAQs</title>
+  <title>Hearted — Support & FAQs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -147,22 +147,44 @@
     .contact-desc {
       font-size: 13px;
       color: var(--text-muted);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
-    .contact-btn {
-      display: inline-block;
-      background: var(--primary);
-      color: var(--bg);
-      text-decoration: none;
-      padding: 12px 28px;
+    .email-copy-container {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg);
+      border: 1px solid var(--card-border);
       border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      padding: 8px 16px;
+      margin-top: 8px;
+      gap: 16px;
     }
-    .contact-btn:hover {
-      transform: translateY(-1px);
-      opacity: 0.95;
+    .email-text {
+      font-family: monospace;
+      font-size: 14px;
+      color: #ffffff;
+      font-weight: 600;
+      user-select: all;
+    }
+    .copy-btn {
+      background: var(--primary);
+      border: none;
+      color: var(--bg);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .copy-btn:hover {
+      opacity: 0.9;
+    }
+    .toast {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 500;
     }
     .footer {
       margin-top: 40px;
@@ -221,10 +243,10 @@
         <div class="faq-question" lang="en"><span>🔒</span> How is my data kept private?</div>
         <div class="faq-question" lang="es"><span>🔒</span> ¿Cómo se mantiene la privacidad de mis datos?</div>
         <div class="faq-answer" lang="en">
-          hearted is designed to be completely anonymous. We do not collect names, phone numbers, or social credentials. All data is saved securely in your device's private sandbox and backed up to our secure cloud server using Row Level Security (RLS) associated with a random anonymous UUID. Only your device can retrieve and decrypt your reflections.
+          Hearted is designed to be completely anonymous. We do not collect names, phone numbers, or social credentials. All data is saved securely in your device's private sandbox and backed up to our secure cloud server using a random, anonymous UUID. Since Hearted has no social or community features, your data is never shared with or visible to other users.
         </div>
         <div class="faq-answer" lang="es">
-          hearted está diseñada para ser completamente anónima. No recopilamos nombres, correos, números de teléfono ni credenciales sociales. Todos los datos se guardan de forma segura en el almacenamiento privado de tu dispositivo y se respaldan en nuestro servidor en la nube utilizando Row Level Security (RLS) asociado a un UUID anónimo y aleatorio. Solo tu dispositivo puede recuperar e interpretar tus reflexiones.
+          Hearted está diseñada para ser completamente anónima. No recopilamos nombres, correos, números de teléfono ni credenciales sociales. Todos los datos se guardan de forma segura en el almacenamiento privado de tu dispositivo y se respaldan en nuestro servidor en la nube utilizando un UUID anónimo y aleatorio. Dado que Hearted no cuenta con funciones sociales ni comunitarias, tus datos nunca se comparten ni son visibles para otros usuarios.
         </div>
       </div>
       <!-- FAQ 2 -->
@@ -243,28 +265,36 @@
         <div class="faq-question" lang="en"><span>🔔</span> How do the notification reminders work?</div>
         <div class="faq-question" lang="es"><span>🔔</span> ¿Cómo funcionan los recordatorios de notificación?</div>
         <div class="faq-answer" lang="en">
-          hearted uses custom local notification alarms to prompt you for daily reflections and keep your persistent notes bar active. You can customize the time window and frequency of these reminders inside the app settings, or toggle notification permissions in your device settings.
+          Hearted uses custom local notification alarms to prompt you for daily reflections and keep your persistent notes bar active. You can customize the time window and frequency of these reminders inside the app settings, or toggle notification permissions in your device settings.
         </div>
         <div class="faq-answer" lang="es">
-          hearted utiliza alarmas de notificación local personalizadas para solicitar tus reflexiones diarias y mantener activa tu barra de notas persistente. Puedes personalizar la ventana horaria y la frecuencia de estos recordatorios dentro de los ajustes de la aplicación, o activar/desactivar los permisos de notificación en los ajustes de tu dispositivo.
+          Hearted utiliza alarmas de notificación local personalizadas para solicitar tus reflexiones diarias y mantener activa tu barra de notas persistente. Puedes personalizar la ventana horaria y la frecuencia de estos recordatorios dentro de los ajustes de la aplicación, o activar/desactivar los permisos de notificación en los ajustes de tu dispositivo.
         </div>
       </div>
       <!-- Contact Section -->
       <div class="contact-card">
         <div lang="en">
           <div class="contact-title">Still need help?</div>
-          <p class="contact-desc">If you encountered a bug or have any other questions, please contact our support team directly via email.</p>
-          <a href="mailto:support@hearted.ai" class="contact-btn">Email Support</a>
+          <p class="contact-desc">If you encountered a bug or have any other questions, please contact our support team by copying the email address below:</p>
+          <div class="email-copy-container">
+            <span class="email-text">support@heartedapp.com</span>
+            <button class="copy-btn" onclick="copyEmail()">Copy</button>
+          </div>
+          <div id="copy-toast-en" class="toast" style="display: none;">Email address copied to clipboard!</div>
         </div>
         <div lang="es">
           <div class="contact-title">¿Aún necesitas ayuda?</div>
-          <p class="contact-desc">Si has encontrado un fallo o tienes cualquier otra pregunta, por favor ponte en contacto con nuestro equipo de soporte directamente por correo electrónico.</p>
-          <a href="mailto:support@hearted.ai" class="contact-btn">Enviar correo de soporte</a>
+          <p class="contact-desc">Si has encontrado un fallo o tienes cualquier otra pregunta, ponte en contacto con nuestro equipo de soporte copiando la dirección de correo a continuación:</p>
+          <div class="email-copy-container">
+            <span class="email-text">support@heartedapp.com</span>
+            <button class="copy-btn" onclick="copyEmail()">Copiar</button>
+          </div>
+          <div id="copy-toast-es" class="toast" style="display: none;">¡Dirección de correo copiada al portapapeles!</div>
         </div>
       </div>
     </main>
     <footer class="footer">
-      <p>&copy; 2026 hearted. All rights reserved.</p>
+      <p>&copy; 2026 Hearted Personal Transformation</p>
     </footer>
   </div>
   <script>
@@ -275,6 +305,21 @@
       try {
         localStorage.setItem('hearted-support-lang', lang);
       } catch (e) {}
+    }
+    function copyEmail() {
+      const email = 'support@heartedapp.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const isEs = document.body.classList.contains('lang-es');
+        const toastEn = document.getElementById('copy-toast-en');
+        const toastEs = document.getElementById('copy-toast-es');
+        if (isEs) {
+          toastEs.style.display = 'block';
+          setTimeout(() => { toastEs.style.display = 'none'; }, 2500);
+        } else {
+          toastEn.style.display = 'block';
+          setTimeout(() => { toastEn.style.display = 'none'; }, 2500);
+        }
+      });
     }
     (() => {
       let savedLang = null;
